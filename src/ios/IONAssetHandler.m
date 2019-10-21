@@ -19,6 +19,7 @@
 
 - (void)webView:(WKWebView *)webView startURLSchemeTask:(id <WKURLSchemeTask>)urlSchemeTask
 {
+    self.isRunning = true;
     Boolean loadFile = true;
     NSString * startPath = @"";
     NSURL * url = urlSchemeTask.request.URL;
@@ -77,9 +78,12 @@
                     };
                 }
 
-                [urlSchemeTask didReceiveResponse:response];
-                [urlSchemeTask didReceiveData:data];
-                [urlSchemeTask didFinish];
+                // Do not use urlSchemeTask if it has been closed in stopURLSchemeTask
+                if(self.isRunning) {
+                    [urlSchemeTask didReceiveResponse:response];
+                    [urlSchemeTask didReceiveData:data];
+                    [urlSchemeTask didFinish];
+                }
             }] resume];
         } else {
             startPath = self.basePath;
@@ -115,6 +119,7 @@
 
 - (void)webView:(nonnull WKWebView *)webView stopURLSchemeTask:(nonnull id<WKURLSchemeTask>)urlSchemeTask
 {
+    self.isRunning = false;
     NSLog(@"stop");
 }
 

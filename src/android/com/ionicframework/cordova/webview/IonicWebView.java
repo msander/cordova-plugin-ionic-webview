@@ -33,6 +33,16 @@ public class IonicWebView extends CordovaPlugin  {
       editor.putString(CDV_SERVER_PATH, path);
       editor.apply();
       return true;
+    } else if (action.equals("setOrigin")) {
+      final String hostname = args.getString(0);
+      final String scheme = args.getString(1);
+      final JSONArray paths = args.getJSONArray(2);
+      cordova.getActivity().runOnUiThread(new Runnable() {
+        public void run() {
+          ((IonicWebViewEngine) webView.getEngine()).setOrigin(hostname, scheme, paths);
+        }
+      });
+      return true;
     }
     return false;
   }

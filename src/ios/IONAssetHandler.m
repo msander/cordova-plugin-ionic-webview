@@ -56,8 +56,10 @@
             [request setHTTPShouldHandleCookies:YES];
             
             [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                if(error) {
+                if(error && self.isRunning) {
                     NSLog(@"Proxy error: %@", error);
+                    [urlSchemeTask didFailWithError:error];
+                    return;
                 }
                 
                 // set cookies to WKWebView

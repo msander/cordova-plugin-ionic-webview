@@ -19,7 +19,7 @@
   under the License.
 -->
 
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-ionic-webview" version="5.0.0">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-ionic-webview" version="5.0.0-GI">
     <name>cordova-plugin-ionic-webview</name>
     <description>Ionic Web View Engine Plugin</description>
     <license>Apache-2.0</license>
@@ -28,8 +28,6 @@
 
 	<engines>
         <engine name="cordova" version=">=7.1.0"/>
-        <engine name="cordova-ios" version=">=4.0.0-dev"/>
-        <engine name="apple-ios" version=">=11.0"/>
         <engine name="cordova-android" version=">=6.4.0"/>
 	</engines>
 
@@ -54,33 +52,6 @@
     <source-file src="src/android/com/ionicframework/cordova/webview/WebViewLocalServer.java" target-dir="src/com/ionicframework/cordova/webview"/>
   </platform>
 
-  <!-- ios -->
-  <platform name="ios">
-    <js-module src="src/www/ios/ios-wkwebview-exec.js" name="ios-wkwebview-exec">
-      <clobbers target="cordova.exec"/>
-    </js-module>
-
-    <config-file target="config.xml" parent="/*">
-        <allow-navigation href="ionic://*"/>
-        <preference name="deployment-target" value="11.0"/>
-        <feature name="IonicWebView">
-            <param name="ios-package" value="CDVWKWebViewEngine"/>
-        </feature>
-        <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine"/>
-    </config-file>
-
-    <framework src="WebKit.framework" weak="true"/>
-
-    <header-file src="src/ios/CDVWKWebViewEngine.h"/>
-    <source-file src="src/ios/CDVWKWebViewEngine.m"/>
-    <header-file src="src/ios/CDVWKWebViewUIDelegate.h"/>
-    <source-file src="src/ios/CDVWKWebViewUIDelegate.m"/>
-    <header-file src="src/ios/CDVWKProcessPoolFactory.h"/>
-    <source-file src="src/ios/CDVWKProcessPoolFactory.m"/>
-    <header-file src="src/ios/IONAssetHandler.h"/>
-    <source-file src="src/ios/IONAssetHandler.m"/>
-    <asset src="src/ios/wk-plugin.js" target="wk-plugin.js"/>
-  </platform>
   <issue>https://github.com/ionic-team/cordova-plugin-ionic-webview/issues</issue>
   <author>Ionic Team</author>
 </plugin>
